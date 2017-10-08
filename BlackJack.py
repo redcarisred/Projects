@@ -1,16 +1,8 @@
 # A computer verion of Blackjack
 import random
-def changelog():
-    print('''
-Changelog:
-    This game is updated almost every day
-    This is a WIP game
-    Thanks for all your support! -Devon Chang
-''')
 print('Welcome to Blackjack!')
 print('By Devon Chang.')
-changelog()
-ask = input('Wanna play? Yes or no: ')
+ask = input('Want to play? Yes or no: ')
 if ask.lower() == 'yes':
     print('''In this game, you will be playing with the dealer (CPU).
 Each of you will start off with $2500.''')
