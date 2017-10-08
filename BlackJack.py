@@ -1,3 +1,4 @@
+# A computer verion of Blackjack
 import random
 def changelog():
     print('''
