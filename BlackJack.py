@@ -1,4 +1,4 @@
-# A computer verion of Blackjack
+# I wrote this computer version of BlackJack
 import random
 print('Welcome to Blackjack!')
 print('By Devon Chang.')
@@ -175,10 +175,10 @@ Each of you will start off with $2500.''')
                     print('He now has: $%s'%dealerMoney)
                     break
         if playerMoney < 1:
-            print('You ran out of money!!!')
+            print('You ran out of money!!! Sorry, better luck next time!')
             break
         elif dealerMoney < 1:
-            print('The dealer ran out of money!!!')
+            print('The dealer ran out of money!!! Victory!')
             break
 else:
     print('...')
