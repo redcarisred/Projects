@@ -1,7 +1,6 @@
-# I wrote this computer version of BlackJack
+# I wrote this computer code for a Blackjack Cards game in Python
 import random
 print('Welcome to Blackjack!')
-print('By Devon Chang.')
 ask = input('Want to play? Yes or no: ')
 if ask.lower() == 'yes':
     print('''In this game, you will be playing with the dealer (CPU).
