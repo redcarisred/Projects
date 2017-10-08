@@ -1,11 +1,4 @@
-def changelog():
-    print('''
-Changelog:
-    This game is updated almost every day
-    4/19/2017: This game is finally released!
-    Thanks for all your support! -Devon Chang
-''')
-    
+# I wrote this computer code for a Connect 4 game in Python
 def printBoard(l):
     print('                                                ')
     print('Column Column Column Column Column Column Column')
@@ -24,7 +17,6 @@ def printBoard(l):
     print('|  '+l[5]+'  |  '+l[11]+'  |  '+l[17]+'  |  '+l[23]+'  |  '+l[29]+'  |  '+l[35]+'  |  '+l[41]+'  |')
     print('------------------------------------------------')
 
-# If this has a bug, it will be VERY hard to debug >:(
 def check(l, n):
     # Checking vertically
     if l[0] == n and l[1] == n and l[2] == n and l[3] == n:
@@ -133,7 +125,6 @@ def check(l, n):
         return True
 
     # Checking diagonally
-    # Remember, this part is the longest: 69 possiblilities!
 
     elif l[0] == n and l[7] == n and l[14] == n and l[21] == n:
         return True
@@ -240,9 +231,7 @@ def check(l, n):
     
     return False
 print('Welcome to Connect 4!')
-print('By Devon Chang.')
-changelog()
-ask = input('Wanna play? Yes or no: ')
+ask = input('Want to play? Yes or no: ')
 if ask.lower() == 'yes':
     columns = ['1','2','3','4','5','6','7']
     l = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42']
