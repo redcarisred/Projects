@@ -1,0 +1,38 @@
+//When push button is pressed, the Arduino uses color sensor to sense color of block (Red, Yellow, or Blue)
+#include <Stepper.h>
+float STEPS_PER_REV = 32;
+float GEAR_RED = 64;
+float STEPS_PER_OUT_REV = 2048;
+int StepsRequired;
+
+Stepper steppermotor(STEPS_PER_REV, 8, 10, 9, 11);
+Stepper steppermotor2(STEPS_PER_REV, 4, 6, 5, 7);
+void setup(){
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  steppermotor.setSpeed(1);
+  StepsRequired = 4;
+  steppermotor.step(StepsRequired);
+  steppermotor2.setSpeed(1);
+  StepsRequired = 4;
+  steppermotor2.step(StepsRequired);
+  delay(2000);
+
+  StepsRequired = STEPS_PER_OUT_REV / 2;
+  steppermotor.setSpeed(100);
+  steppermotor.step(StepsRequired);
+  StepsRequired = STEPS_PER_OUT_REV / 2;
+  steppermotor2.setSpeed(100);
+  steppermotor2.step(StepsRequired);
+  delay(1000);
+  StepsRequired = -STEPS_PER_OUT_REV / 2;
+  steppermotor.setSpeed(700);
+  steppermotor.step(StepsRequired);
+  StepsRequired = -STEPS_PER_OUT_REV / 2;
+  steppermotor2.setSpeed(700);
+  steppermotor2.step(StepsRequired);
+  delay(2000);
+}
