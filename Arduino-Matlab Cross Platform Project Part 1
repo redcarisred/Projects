@@ -1,38 +1,91 @@
-//When push button is pressed, the Arduino uses color sensor to sense color of block (Red, Yellow, or Blue)
-#include <Stepper.h>
-float STEPS_PER_REV = 32;
-float GEAR_RED = 64;
-float STEPS_PER_OUT_REV = 2048;
-int StepsRequired;
+//This is the first part of the Arduino-Matlab Cross Platform Project, written in Arduino code. 
+//When push button is pressed, the Arduino uses color sensor to sense color of block (Red, Yellow, or Blue). Color is written to Serial
+#include <Wire.h>
+#include "Adafruit_TCS34725.h"
+bool buttonState=LOW;
+// Pick analog outputs, for the UNO these three work well
+// use ~560  ohm resistor between Red & Blue, ~1K for green (its brighter)
+#define redpin 9
+#define greenpin 10
+#define bluepin 11
+#define buttonpin 4
+// for a common anode LED, connect the common pin to +5V
+// for common cathode, connect the common to ground
 
-Stepper steppermotor(STEPS_PER_REV, 8, 10, 9, 11);
-Stepper steppermotor2(STEPS_PER_REV, 4, 6, 5, 7);
-void setup(){
+// set to false if using a common cathode LED
+#define commonAnode false
+
+// our RGB -> eye-recognized gamma color
+byte gammatable[256];
+
+
+Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Color View Test!");
+
+  if (tcs.begin()) {
+    Serial.println("Found sensor");
+  } else {
+    Serial.println("No TCS34725 found ... check your connections");
+    while (1); // halt!
+  }
   
+  // use these three pins to drive an LED
+  pinMode(redpin, OUTPUT);
+  pinMode(greenpin, OUTPUT);
+  pinMode(bluepin, OUTPUT);
+  pinMode(buttonpin, INPUT);
+  // thanks PhilB for this gamma table!
+  // it helps convert RGB colors to what humans see
+  for (int i=0; i<256; i++) {
+    float x = i;
+    x /= 255;
+    x = pow(x, 2.5);
+    x *= 255;
+      
+    if (commonAnode) {
+      gammatable[i] = 255 - x;
+    } else {
+      gammatable[i] = x;      
+    }
+    //Serial.println(gammatable[i]);
+  }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  steppermotor.setSpeed(1);
-  StepsRequired = 4;
-  steppermotor.step(StepsRequired);
-  steppermotor2.setSpeed(1);
-  StepsRequired = 4;
-  steppermotor2.step(StepsRequired);
-  delay(2000);
-
-  StepsRequired = STEPS_PER_OUT_REV / 2;
-  steppermotor.setSpeed(100);
-  steppermotor.step(StepsRequired);
-  StepsRequired = STEPS_PER_OUT_REV / 2;
-  steppermotor2.setSpeed(100);
-  steppermotor2.step(StepsRequired);
-  delay(1000);
-  StepsRequired = -STEPS_PER_OUT_REV / 2;
-  steppermotor.setSpeed(700);
-  steppermotor.step(StepsRequired);
-  StepsRequired = -STEPS_PER_OUT_REV / 2;
-  steppermotor2.setSpeed(700);
-  steppermotor2.step(StepsRequired);
-  delay(2000);
+  buttonState = digitalRead(buttonpin);
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+    uint16_t clear, red, green, blue;
+  
+    tcs.setInterrupt(false);      // turn on LED
+  
+    delay(60);  // takes 50ms to read 
+    
+    tcs.getRawData(&red, &green, &blue, &clear);
+  
+    tcs.setInterrupt(true);  // turn off LED
+    
+    Serial.print(red);
+    Serial.print(' ');
+    Serial.print(green);
+    Serial.print(' ');
+    Serial.print(blue);
+    Serial.println();
+    
+    // Figure out some basic hex code for visualization
+    uint32_t sum = clear;
+    float r, g, b;
+    r = red; r /= sum;
+    g = green; g /= sum;
+    b = blue; b /= sum;
+    r *= 256; g *= 256; b *= 256;
+    
+    analogWrite(redpin, gammatable[(int)r]);
+    analogWrite(greenpin, gammatable[(int)g]);
+    analogWrite(bluepin, gammatable[(int)b]);
+    delay(5000);
+  }
 }
