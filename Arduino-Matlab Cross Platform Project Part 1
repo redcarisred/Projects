@@ -1,5 +1,5 @@
 //This is the first part of the Arduino-Matlab Cross Platform Project, written in Arduino code. 
-//When push button is pressed, the Arduino uses color sensor to sense color of block (Red, Yellow, or Blue). Color is written to Serial
+//When push button is pressed, the Arduino uses color sensor to sense RGB values of block (Red, Orange, or Blue). RGB values are written to Serial
 #include <Wire.h>
 #include "Adafruit_TCS34725.h"
 bool buttonState=LOW;
