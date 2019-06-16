@@ -1,4 +1,3 @@
-# I wrote this computer code for a Connect 4 game in Python
 def printBoard(l):
     print('                                                ')
     print('Column Column Column Column Column Column Column')
