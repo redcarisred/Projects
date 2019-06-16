@@ -1,4 +1,3 @@
-//When push button is pressed, the Arduino uses color sensor to sense RGB values of block (Red, Orange, or Blue). RGB values are written to Serial
 #include <Wire.h>
 #include "Adafruit_TCS34725.h"
 bool buttonState=LOW;
