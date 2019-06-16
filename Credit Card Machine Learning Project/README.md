@@ -1,4 +1,4 @@
-# Credit Card Project
+# Credit Card Machine Learning Project
 
 This machine learning algorithm predicts whether or not a user will exit a bank within the next year by looking at several factors. Some factors include the user's credit score, their age, whether or not they currently own a credit card, and their estimated salary.
 
