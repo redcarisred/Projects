@@ -1,4 +1,3 @@
-# I wrote this computer code for a pygame game in Python
 import os
 import random
 import pygame
