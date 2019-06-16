@@ -1,4 +1,3 @@
-%Matlab reads the RGB values from Arduino Serial Monitor, commands EV3 robot arm to pick up block and puts it into the corresponding colored bucket.
 clear;
 delete(instrfind);
 pause(0.1);
