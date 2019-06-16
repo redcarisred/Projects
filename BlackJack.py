@@ -1,4 +1,3 @@
-# I wrote this computer code for a Blackjack Cards game in Python
 import random
 print('Welcome to Blackjack!')
 ask = input('Want to play? Yes or no: ')
