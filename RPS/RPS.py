@@ -24,6 +24,6 @@ while pChoice != 'quit':
         else:
             print("You won!")
     else:
-        print('TypeError: Can not read inputed information')
+        print('Can not read input')
         
     pChoice = input('Choose one of the following: rock, paper, scissors, or quit: ')
